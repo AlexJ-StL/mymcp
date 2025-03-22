@@ -1,0 +1,6 @@
+ignore = ["F401", "W292"]
+line-length = 120
+exclude = [".git", "__pycache__", "build", "dist", ".venv"]
+
+[per-file-ignores]
+"*.pyi" = ["F401", "F403", "F405", "W292"]

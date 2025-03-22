@@ -1,0 +1,14 @@
+{
+    "typeCheckingMode": "basic",
+    "reportUnknownMemberType": false,
+    "reportUnknownVariableType": false,
+    "reportUnknownArgumentType": false,
+    "reportMissingTypeStubs": false,
+    "pythonVersion": "3.8",
+    "strictParameterNoneValue": false,
+    "extraPaths": [".venv/Lib/site-packages"],
+    "reportMissingImports": "warning",
+    "venvPath": ".",
+    "venv": ".venv",
+    "reportGeneralTypeIssues": "warning"
+}

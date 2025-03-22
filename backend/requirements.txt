@@ -1,2 +1,0 @@
-Flask==2.3.3
-google-genai==1.5.0
