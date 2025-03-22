@@ -17,6 +17,8 @@ function App() {
 
   const handleSubmit = async () => {
     try {
+      console.log("Sending prompt:", prompt); // Debug log
+
       const response = await fetch("http://localhost:5000/api/generate-mcp", {
         method: "POST",
         headers: {
@@ -26,15 +28,20 @@ function App() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Server error response:", errorData); // Debug log
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setGeneratedConfig(JSON.stringify(data.mcp_server_config, null, 2)); // Assuming backend returns mcp_server_config
-      setGeneratedCode(data.mcp_server_code); // Assuming backend returns mcp_server_code
+      console.log("Received data:", data); // Debug log
+      setGeneratedConfig(JSON.stringify(data, null, 2));
+      setGeneratedCode(data.response || "No code generated"); // Changed from data.mcp_server_code
     } catch (error) {
       console.error("Error generating MCP server:", error);
-      // Handle error (e.g., display error message to user)
+      // Add user-friendly error display
+      setGeneratedConfig("Error: " + error.message);
+      setGeneratedCode("");
     }
   };
   return (
