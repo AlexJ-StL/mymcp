@@ -6,8 +6,13 @@ from typing import Dict, Any, Optional, List, Union
 from google.generativeai.types import GenerateContentResponse
 
 api_bp = Blueprint('api', __name__)
-CORS(api_bp)
-
+CORS(api_bp, resources={
+    r"/api/*": {
+        "origins": ["http://localhost:3000",]
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 GOOGLE_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 if not GOOGLE_API_KEY:

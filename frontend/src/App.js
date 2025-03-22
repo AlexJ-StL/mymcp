@@ -17,7 +17,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/generate_mcp_server", {
+      const response = await fetch("http://localhost:5000/api/generate-mcp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
