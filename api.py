@@ -26,36 +26,47 @@ if not GOOGLE_API_KEY:
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
 
+PROMPT_TEMPLATE = """Create a minimal Python MCP server and its JSON configuration based on the following user description:
 
-# Type definitions for your MCP structures
-class MCPConfig(Dict[str, Any]):
-    pass
+User Description: {user_description}
 
+Save the Python code to: {output_directory}/server.py
+Save the JSON configuration to: {output_directory}/config.json
 
-class ToolConfig(Dict[str, Any]):
-    pass
+The Python code should be a functional server implementing the tools listed in the JSON configuration. If no tools are specified, provide a simple "Hello, world!" example. The server should use the `FastMCP` class from the `MCP` library (assuming it's installed). Include necessary import statements.
 
+The JSON configuration should include:
+* "name": A descriptive name for the server (derived from the user description)
+* "description": A brief description of the server's purpose (derived from the user description)
+* "tools": An array of objects, each with a "name" and "description" describing the tools the server provides. If the user description doesn't specify tools, leave this array empty. Each tool should be a simple function."""
 
-def generate_mcp_server(prompt: str) -> MCPConfig:
+def generate_mcp_server(user_description: str, output_directory: str) -> Dict[str, Any]:
     try:
+        prompt = PROMPT_TEMPLATE.format(
+            user_description=user_description,
+            output_directory=output_directory
+        )
         response: GenerateContentResponse = model.generate_content(prompt)
-        return MCPConfig({'response': response.text})
+        return {
+            'response': response.text,
+            'status': 'success'
+        }
     except Exception as e:
         print(f"Error in generate_mcp_server: {str(e)}")
         print(traceback.format_exc())
         raise
 
-
 @api_bp.route('/generate-mcp', methods=['POST'])
 def generate_mcp_endpoint():
     try:
         data = request.json
-        if not data or 'prompt' not in data:
-            return jsonify({'error': 'Missing prompt'}), 400
+        if not data or 'prompt' not in data or 'outputDir' not in data:
+            return jsonify({'error': 'Missing prompt or output directory'}), 400
 
         print(f"Received prompt: {data['prompt']}")  # Debug log
+        print(f"Output directory: {data['outputDir']}")  # Debug log
 
-        result = generate_mcp_server(data['prompt'])
+        result = generate_mcp_server(data['prompt'], data['outputDir'])
         return jsonify(result)
     except Exception as e:
         print(f"Error in generate_mcp_endpoint: {str(e)}")
