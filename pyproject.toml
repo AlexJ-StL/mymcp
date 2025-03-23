@@ -20,6 +20,7 @@ dependencies = [
     "generativeai>=0.0.1",
     "ruff>=0.11.1",
     "google-generativeai==0.8.4",
+    "fastmcp>=0.4.1",
 ]
 
 [build-system]
