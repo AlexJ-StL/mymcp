@@ -6,6 +6,7 @@ function App() {
   const [outputDir, setOutputDir] = React.useState("./output");
   const [generatedConfig, setGeneratedConfig] = React.useState("");
   const [generatedCode, setGeneratedCode] = React.useState("");
+  const [filePaths, setFilePaths] = React.useState(null);
 
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
@@ -25,9 +26,9 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           prompt: prompt,
-          outputDir: outputDir 
+          outputDir: outputDir
         }),
       });
 
@@ -47,10 +48,12 @@ function App() {
 
       setGeneratedCode(pythonCodeMatch ? pythonCodeMatch[1].trim() : "No Python code generated");
       setGeneratedConfig(jsonConfigMatch ? jsonConfigMatch[1].trim() : "No JSON configuration generated");
+      setFilePaths(data.files || null);
     } catch (error) {
       console.error("Error generating MCP server:", error);
       setGeneratedConfig("Error: " + error.message);
       setGeneratedCode("");
+      setFilePaths(null);
     }
   };
   return (
@@ -79,10 +82,12 @@ function App() {
         <section>
           <h2>Generated Configuration (JSON)</h2>
           <pre>{generatedConfig}</pre>
+          {filePaths && <div className="file-path">Saved to: {filePaths.json_path}</div>}
         </section>
         <section>
           <h2>Generated Code (Python)</h2>
           <pre>{generatedCode}</pre>
+          {filePaths && <div className="file-path">Saved to: {filePaths.python_path}</div>}
         </section>
         <button onClick={handleSubmit}>Generate MCP Server</button>
       </main>
@@ -91,4 +96,5 @@ function App() {
 }
 
 export default App;
+
 
