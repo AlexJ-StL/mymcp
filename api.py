@@ -1,4 +1,6 @@
 import os
+import json
+import re
 import traceback
 from flask import Blueprint, jsonify, request
 from flask_cors import CORS
@@ -40,6 +42,46 @@ The JSON configuration should include:
 * "description": A brief description of the server's purpose (derived from the user description)
 * "tools": An array of objects, each with a "name" and "description" describing the tools the server provides. If the user description doesn't specify tools, leave this array empty. Each tool should be a simple function."""
 
+def write_files(response_text: str, output_directory: str) -> Dict[str, str]:
+    try:
+        # Create output directory if it doesn't exist
+        os.makedirs(output_directory, exist_ok=True)
+
+        # Extract Python code and JSON configuration using Python regex
+        python_match = re.search(r'```python([\s\S]*?)```', response_text)
+        json_match = re.search(r'```json([\s\S]*?)```', response_text)
+
+        # Use group(1) to get the captured content
+        python_code = python_match.group(1).strip() if python_match else ""
+        json_config = json_match.group(1).strip() if json_match else ""
+
+        # Write Python file
+        python_path = os.path.join(output_directory, "server.py")
+        with open(python_path, "w") as f:
+            f.write(python_code)
+
+        # Write JSON file
+        json_path = os.path.join(output_directory, "config.json")
+        with open(json_path, "w") as f:
+            # Pretty print the JSON
+            if json_config:
+                json_obj = json.loads(json_config)
+                json.dump(json_obj, f, indent=4)
+
+        return {
+            "python_path": python_path,
+            "json_path": json_path
+        }
+    except Exception as e:
+        print(f"Error writing files: {str(e)}")
+        print(traceback.format_exc())
+        # Return an error dictionary instead of raising
+        return {
+            "error": str(e),
+            "python_path": "",
+            "json_path": ""
+        }
+
 def generate_mcp_server(user_description: str, output_directory: str) -> Dict[str, Any]:
     try:
         prompt = PROMPT_TEMPLATE.format(
@@ -47,9 +89,14 @@ def generate_mcp_server(user_description: str, output_directory: str) -> Dict[st
             output_directory=output_directory
         )
         response: GenerateContentResponse = model.generate_content(prompt)
+
+        # Write files and get their paths
+        file_paths = write_files(response.text, output_directory)
+
         return {
             'response': response.text,
-            'status': 'success'
+            'status': 'success',
+            'files': file_paths
         }
     except Exception as e:
         print(f"Error in generate_mcp_server: {str(e)}")
