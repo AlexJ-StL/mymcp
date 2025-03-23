@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   const [prompt, setPrompt] = React.useState("");
-  const [outputDir, setOutputDir] = React.useState("");
+  const [outputDir, setOutputDir] = React.useState("./output");
   const [generatedConfig, setGeneratedConfig] = React.useState("");
   const [generatedCode, setGeneratedCode] = React.useState("");
 
@@ -18,13 +18,17 @@ function App() {
   const handleSubmit = async () => {
     try {
       console.log("Sending prompt:", prompt); // Debug log
+      console.log("Output directory:", outputDir); // Debug log
 
       const response = await fetch("http://localhost:5000/api/generate-mcp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: prompt }),
+        body: JSON.stringify({ 
+          prompt: prompt,
+          outputDir: outputDir 
+        }),
       });
 
       if (!response.ok) {
@@ -35,11 +39,16 @@ function App() {
 
       const data = await response.json();
       console.log("Received data:", data); // Debug log
-      setGeneratedConfig(JSON.stringify(data, null, 2));
-      setGeneratedCode(data.response || "No code generated"); // Changed from data.mcp_server_code
+
+      // Split the response into Python code and JSON configuration
+      const responseText = data.response || "";
+      const pythonCodeMatch = responseText.match(/```python([\s\S]*?)```/);
+      const jsonConfigMatch = responseText.match(/```json([\s\S]*?)```/);
+
+      setGeneratedCode(pythonCodeMatch ? pythonCodeMatch[1].trim() : "No Python code generated");
+      setGeneratedConfig(jsonConfigMatch ? jsonConfigMatch[1].trim() : "No JSON configuration generated");
     } catch (error) {
       console.error("Error generating MCP server:", error);
-      // Add user-friendly error display
       setGeneratedConfig("Error: " + error.message);
       setGeneratedCode("");
     }
@@ -53,34 +62,26 @@ function App() {
         <section>
           <h2>Prompt Input</h2>
           <textarea
-            placeholder="Enter your MCP server prompt here..."
+            placeholder="Describe your MCP server requirements..."
             value={prompt}
             onChange={handlePromptChange}
           />
         </section>
         <section>
-          <h2>Options</h2>
-          <label>
-            MCP Server:
-            <input type="checkbox" />
-          </label>
-          {/* Future: Add toggles for Tools and Agent */}
-        </section>
-        <section>
           <h2>Output Directory</h2>
           <input
             type="text"
-            placeholder="Enter output directory..."
+            placeholder="Enter output directory path..."
             value={outputDir}
             onChange={handleOutputDirChange}
           />
         </section>
         <section>
-          <h2>Generated Configuration</h2>
+          <h2>Generated Configuration (JSON)</h2>
           <pre>{generatedConfig}</pre>
         </section>
         <section>
-          <h2>Generated Code</h2>
+          <h2>Generated Code (Python)</h2>
           <pre>{generatedCode}</pre>
         </section>
         <button onClick={handleSubmit}>Generate MCP Server</button>
@@ -90,3 +91,4 @@ function App() {
 }
 
 export default App;
+
