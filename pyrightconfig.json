@@ -1,10 +1,10 @@
 {
-    "typeCheckingMode": "basic",
+    "typeCheckingMode": "standard",
     "reportUnknownMemberType": false,
     "reportUnknownVariableType": false,
     "reportUnknownArgumentType": false,
     "reportMissingTypeStubs": false,
-    "pythonVersion": "3.8",
+    "pythonVersion": "3.10",
     "strictParameterNoneValue": false,
     "extraPaths": [".venv/Lib/site-packages"],
     "reportMissingImports": "warning",
