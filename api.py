@@ -26,7 +26,7 @@ if not GOOGLE_API_KEY:
     )
 
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
+model = genai.GenerativeModel('gemini-2.5-pro-exp-03-25')
 
 PROMPT_TEMPLATE = """Create a minimal Python MCP server and its JSON configuration based on the following user description:
 
