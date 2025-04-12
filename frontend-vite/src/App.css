@@ -58,7 +58,10 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
   background-color: #1e1e1e;
-  padding: 15px 5px 15px 15px; /* Reduced right padding */
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 5px; /* Reduced right padding */
   border-radius: 5px;
   overflow-x: auto;
   box-sizing: border-box; /* Include padding and border in width */
