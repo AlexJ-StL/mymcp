@@ -126,6 +126,7 @@ The application consists of:
 ## Change Log
 
 -   **v0.1.0 (MVP):** Initial release with basic MCP server generation using Google Gemini. Backend in root, frontend in `/frontend`.
+-   **v0.2.0 (MVP):** Migrated frontend from Create React App to Vite for improved performance, reduced vulnerabilities, and better developer experience. Updated directory structure to include both original CRA frontend and new Vite-based frontend. Maintained React 19 compatibility while significantly reducing dependency footprint and eliminating security vulnerabilities.
 
 ## Future Features
 
