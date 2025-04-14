@@ -1,13 +1,60 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ./frontend-vite/src/index.css */
+
+/* Define your custom fonts */
+@font-face {
+  font-family: 'DynaLightRegular';
+  src: url('./assets/dynalight-regular-webfont.woff2') format('woff2'),
+      url('./assets/dynalight-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Improves perceived performance */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* LimeLight font-face rule removed */
+
+@font-face {
+  font-family: 'PacificoRegular';
+  src: url('./assets/pacifico-regular-webfont.woff2') format('woff2'),
+      url('./assets/pacifico-regular-webfont.woff') format('woff'); /* Corrected: Point to .woff if available */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Add rules for Lato (Readable Font) --- */
+@font-face {
+  font-family: 'Lato'; /* Use 'Lato' as the family name */
+  src: url('./assets/lato-regular-webfont.woff2') format('woff2'), /* Adjust filename if needed */
+      url('./assets/lato-regular-webfont.woff') format('woff');
+  font-weight: normal; /* Specify normal weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lato'; /* Use the SAME family name */
+  src: url('./assets/lato-bold-webfont.woff2') format('woff2'), /* Point to the bold file */
+      url('./assets/lato-bold-webfont.woff') format('woff');
+  font-weight: bold; /* Specify bold weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0; /* Remove default padding */
+  font-family: 'Lato', sans-serif; /* Set Lato as the default readable font */
+  background-color: #f0f8ff; /* Pastel Alice Blue */
+  /* Or: background-color: #FAF0E6; */ /* Linen (Creamy) */
+  color: #333; /* Default dark text for contrast */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6; /* Improve text readability */
+}
+
+/* Ensure box-sizing for easier layout */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
