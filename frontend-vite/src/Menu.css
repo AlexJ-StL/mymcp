@@ -1,0 +1,75 @@
+/* ./frontend-vite/src/Menu.css */
+
+.menu-section {
+  background-color: #FAF0E6; /* Floral White */
+  padding: 20px 40px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f5f5dc; /* Beige border */
+}
+
+/* Re-using section-title style from ChefSelector.css for consistency */
+/* If not using shared styles, define it here: */
+/*
+.section-title {
+  font-family: 'PacificoRegular', cursive;
+  font-size: 2em;
+  color: #8b4513;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: normal;
+}
+*/
+
+.menu-description {
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 1.1em;
+}
+
+.menu-items-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  gap: 15px; /* Spacing between items */
+  justify-content: center; /* Center items */
+}
+
+.menu-item {
+  font-family: 'Lato', sans-serif;
+  background-color: #ffe4b5; /* Moccasin */
+  border: 1px solid #ffdab9; /* Peach Puff */
+  border-radius: 6px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+  min-width: 180px; /* Minimum width for items */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.menu-item:hover {
+  background-color: #ffdead; /* Navajo White */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.menu-item-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #a0522d; /* Sienna */
+  margin: 0; /* Remove default heading margin */
+}
+
+/* Description within the button is commented out in JSX for now */
+/*
+.menu-item-description {
+  font-size: 0.9em;
+  color: #8b7355;
+  margin-top: 5px;
+}
+*/

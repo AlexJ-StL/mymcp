@@ -1,100 +1,119 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'; // Main app styles
+
+// Import Components
+import Header from './Header';
+import ChefSelector from './ChefSelector';
+import Menu from './Menu';
+import OrderForm from './OrderForm';
+import LiveStatus, { STATUS } from './LiveStatus'; // Import STATUS constants
+import ResultsDisplay from './ResultsDisplay';
 
 function App() {
-  const [prompt, setPrompt] = React.useState("");
-  const [outputDir, setOutputDir] = React.useState("./output");
-  const [generatedConfig, setGeneratedConfig] = React.useState("");
-  const [generatedCode, setGeneratedCode] = React.useState("");
-  const [filePaths, setFilePaths] = React.useState(null);
+  // State Variables
+  const [prompt, setPrompt] = useState("");
+  const [status, setStatus] = useState(STATUS.IDLE); // Initial status
+  const [generatedConfig, setGeneratedConfig] = useState("");
+  const [generatedCode, setGeneratedCode] = useState("");
+  const [filePaths, setFilePaths] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(""); // For displaying errors
 
+  // Event Handlers
   const handlePromptChange = (event) => {
     setPrompt(event.target.value);
   };
 
-  const handleOutputDirChange = (event) => {
-    setOutputDir(event.target.value);
+  const handleMenuSelect = (selectedPrompt) => {
+    setPrompt(selectedPrompt); // Update prompt state with selected example
   };
 
   const handleSubmit = async () => {
+    // Reset previous results and errors
+    setGeneratedCode("");
+    setGeneratedConfig("");
+    setFilePaths(null);
+    setErrorMessage("");
+    setStatus(STATUS.ORDERED); // 1. Set status to Ordered
+
+    // Simulate "Cooking" starting almost immediately
+    // In a real scenario with backend updates, this might be triggered by a backend event
+    setTimeout(() => setStatus(STATUS.COOKING), 100); // 2. Set status to Cooking (simulated)
+
     try {
       console.log("Sending prompt:", prompt); // Debug log
-      console.log("Output directory:", outputDir); // Debug log
 
+      // Make the API call (without outputDir)
       const response = await fetch("http://localhost:5000/api/generate-mcp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          prompt: prompt,
-          outputDir: outputDir
-        }),
+        body: JSON.stringify({ prompt: prompt }), // Only send the prompt
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Server error response:", errorData); // Debug log
-        throw new Error(`HTTP error! status: ${response.status}`);
+        let errorMsg = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          console.error("Server error response:", errorData); // Debug log
+          errorMsg = errorData.error || errorMsg; // Use server error message if available
+        } catch {
+          // Ignore if response is not JSON
+        }
+        throw new Error(errorMsg);
       }
 
       const data = await response.json();
       console.log("Received data:", data); // Debug log
 
-      // Split the response into Python code and JSON configuration
+      // Extract code and config
       const responseText = data.response || "";
       const pythonCodeMatch = responseText.match(/```python([\s\S]*?)```/);
       const jsonConfigMatch = responseText.match(/```json([\s\S]*?)```/);
 
-      setGeneratedCode(pythonCodeMatch ? pythonCodeMatch[1].trim() : "No Python code generated");
-      setGeneratedConfig(jsonConfigMatch ? jsonConfigMatch[1].trim() : "No JSON configuration generated");
+      setGeneratedCode(pythonCodeMatch ? pythonCodeMatch[1].trim() : "");
+      setGeneratedConfig(jsonConfigMatch ? jsonConfigMatch[1].trim() : "");
       setFilePaths(data.files || null);
+      setStatus(STATUS.DELIVERED); // 3. Set status to Delivered on success
+
     } catch (error) {
       console.error("Error generating MCP server:", error);
-      setGeneratedConfig("Error: " + error.message);
+      setErrorMessage("Error: " + error.message);
+      setGeneratedConfig(""); // Clear any partial results on error
       setGeneratedCode("");
       setFilePaths(null);
+      setStatus(STATUS.ERROR); // 4. Set status to Error
     }
   };
+
+  // Render the application
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>MyMCP Prompt</h1>
-      </header>
-      <main>
-        <section>
-          <h2>Prompt Input</h2>
-          <textarea
-            placeholder="Describe your MCP server requirements..."
-            value={prompt}
-            onChange={handlePromptChange}
+      <Header />
+      <main className="app-content">
+        <ChefSelector /> {/* Currently static */}
+        <Menu onSelect={handleMenuSelect} /> {/* Pass handler */}
+        <OrderForm
+          prompt={prompt}
+          onPromptChange={handlePromptChange}
+          onSubmit={handleSubmit}
+        />
+        <LiveStatus status={status} /> {/* Pass current status */}
+        {/* Display error message if status is ERROR */}
+        {status === STATUS.ERROR && errorMessage && (
+          <div className="error-message-container">{errorMessage}</div>
+        )}
+        {/* Display results only when delivered successfully */}
+        {status === STATUS.DELIVERED && (
+          <ResultsDisplay
+            generatedCode={generatedCode}
+            generatedConfig={generatedConfig}
+            filePaths={filePaths}
           />
-        </section>
-        <section>
-          <h2>Output Directory</h2>
-          <input
-            type="text"
-            placeholder="Enter output directory path..."
-            value={outputDir}
-            onChange={handleOutputDirChange}
-          />
-        </section>
-        <section>
-          <h2>Generated Configuration (JSON)</h2>
-          <pre>{generatedConfig}</pre>
-          {filePaths && <div className="file-path">Saved to: {filePaths.json_path}</div>}
-        </section>
-        <section>
-          <h2>Generated Code (Python)</h2>
-          <pre>{generatedCode}</pre>
-          {filePaths && <div className="file-path">Saved to: {filePaths.python_path}</div>}
-        </section>
-        <button onClick={handleSubmit}>Generate MCP Server</button>
+        )}
       </main>
     </div>
   );
 }
 
 export default App;
-
-

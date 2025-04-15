@@ -1,0 +1,38 @@
+/* ./frontend-vite/src/ChefSelector.css */
+
+.chef-selector-section {
+  background-color: #FAF0E6; /* Linen - a light creamy color */
+  padding: 20px 40px;
+  margin: 20px auto; /* Center section with margins */
+  max-width: 800px; /* Limit width for better readability */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee8d5; /* Light border */
+}
+
+.section-title {
+  font-family: 'PacificoRegular', cursive; /* Use Pacifico for section titles */
+  font-size: 2em;
+  color: #8b4513; /* Saddle Brown */
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+.chef-display {
+  font-family: 'Lato', sans-serif; /* Use Lato for readable text */
+  font-size: 1.1em;
+  text-align: center;
+  color: #555;
+}
+
+.chef-label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #a0522d; /* Sienna */
+}
+
+.chef-name {
+  font-style: italic;
+}

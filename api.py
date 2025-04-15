@@ -32,9 +32,6 @@ PROMPT_TEMPLATE = """Create a minimal Python MCP server and its JSON configurati
 
 User Description: {user_description}
 
-Save the Python code to: {output_directory}/server.py
-Save the JSON configuration to: {output_directory}/config.json
-
 The Python code should be a functional server implementing the tools listed in the JSON configuration. If no tools are specified, provide a simple "Hello, world!" example. The server should use the `FastMCP` class from the `MCP` library (assuming it's installed). Include necessary import statements.
 
 The JSON configuration should include:
@@ -82,11 +79,10 @@ def write_files(response_text: str, output_directory: str) -> Dict[str, str]:
             "json_path": ""
         }
 
-def generate_mcp_server(user_description: str, output_directory: str) -> Dict[str, Any]:
+def generate_mcp_server(user_description: str, output_directory: str = "./generated_server") -> Dict[str, Any]:
     try:
         prompt = PROMPT_TEMPLATE.format(
-            user_description=user_description,
-            output_directory=output_directory
+            user_description=user_description
         )
         response: GenerateContentResponse = model.generate_content(prompt)
 
@@ -107,13 +103,15 @@ def generate_mcp_server(user_description: str, output_directory: str) -> Dict[st
 def generate_mcp_endpoint():
     try:
         data = request.json
-        if not data or 'prompt' not in data or 'outputDir' not in data:
-            return jsonify({'error': 'Missing prompt or output directory'}), 400
+        if not data or 'prompt' not in data:
+            return jsonify({'error': 'Missing prompt'}), 400
+
+        output_directory = data.get('outputDir', './generated_server') # Default output directory
 
         print(f"Received prompt: {data['prompt']}")  # Debug log
-        print(f"Output directory: {data['outputDir']}")  # Debug log
+        print(f"Output directory: {output_directory}")  # Debug log
 
-        result = generate_mcp_server(data['prompt'], data['outputDir'])
+        result = generate_mcp_server(data['prompt'], output_directory)
         return jsonify(result)
     except Exception as e:
         print(f"Error in generate_mcp_endpoint: {str(e)}")

@@ -12,8 +12,8 @@ The application consists of:
     -   `app.py`: Main Flask application setup (CORS, blueprint registration).
     -   `api.py`: Contains the `/api/generate-mcp` endpoint which interacts with the Google Gemini API to generate server code and configuration.
     -   `requirements.txt`: Lists Python dependencies.
--   **React Frontend (`/frontend` Directory):**
-    -   Provides a web interface (`frontend/src/App.js`) for users to input server descriptions and output directories.
+-   **React Frontend (`/frontend-vite` Directory):**
+    -   Provides a web interface (`frontend-vite/src/App.js`) for users to input server descriptions.
     -   Displays the generated Python code and JSON configuration.
     -   Shows the paths where the generated files are saved.
 
@@ -45,10 +45,10 @@ The application consists of:
 
 3.  **Frontend Setup:**
 
-    Navigate to the `frontend` directory:
+    Navigate to the `frontend-vite` directory:
 
     ```bash
-    cd frontend
+    cd frontend-vite
     ```
 
     Install Node.js dependencies:
@@ -106,27 +106,26 @@ The application consists of:
 
 2.  **Start the Frontend Development Server:**
     -   Open a *new* terminal.
-    -   Navigate to the `frontend` directory:
+    -   Navigate to the `frontend-vite` directory:
         ```bash
-        cd frontend
+        cd frontend-vite
         ```
     -   Run the React app:
         ```bash
-        npm start
+        npm run dev
         ```
-    -   The frontend will open automatically in your browser, usually at `http://localhost:3000`.
+    -   The frontend will open automatically in your browser, usually at `http://localhost:5173`.
 
 3.  **Use the Application:**
-    -   Open `http://localhost:3000` in your browser.
+    -   Open `http://localhost:5173` in your browser.
     -   Enter a description for the MCP server you want to generate.
-    -   Specify the desired output directory (relative to the project root, e.g., `./generated_server`).
-    -   Click "Generate MCP Server".
-    -   The generated Python code and JSON configuration will be displayed, and the files will be saved to the specified output directory.
+    -   Click "Place Your Order".
+    -   The generated Python code and JSON configuration will be displayed, and the files will be saved to the `generated_server` directory (or a directory chosen by the LLM).
 
 ## Change Log
 
 -   **v0.1.0 (MVP):** Initial release with basic MCP server generation using Google Gemini. Backend in root, frontend in `/frontend`.
--   **v0.2.0 (MVP):** Migrated frontend from Create React App to Vite for improved performance, reduced vulnerabilities, and better developer experience. Updated directory structure to include both original CRA frontend and new Vite-based frontend. Maintained React 19 compatibility while significantly reducing dependency footprint and eliminating security vulnerabilities.
+-   **v0.2.0 (Vite Frontend & UI Redesign):** Migrated frontend from Create React App to Vite for improved performance, reduced vulnerabilities, and better developer experience. Implemented a new French café-themed UI. Removed the output directory input from the frontend, allowing the backend to choose the output directory. Updated the backend API to handle requests without an output directory.
 
 ## Future Features
 

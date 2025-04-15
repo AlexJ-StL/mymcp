@@ -1,0 +1,10 @@
+{
+    "name": "Word Frequency Counter MCP",
+    "description": "An MCP server that reads text and counts word frequency.",
+    "tools": [
+        {
+            "name": "count_word_frequency",
+            "description": "Counts the frequency of each word in a given text string. Requires a 'text' parameter containing the input string."
+        }
+    ]
+}

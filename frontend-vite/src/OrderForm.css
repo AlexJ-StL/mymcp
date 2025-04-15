@@ -1,0 +1,73 @@
+/* ./frontend-vite/src/OrderForm.css */
+
+.order-form-section {
+  background-color: #FAF0E6; /* Lavender - a soft purple */
+  padding: 30px 40px; /* More padding for emphasis */
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d8bfd8; /* Thistle border */
+}
+
+/* Re-using section-title style */
+/*
+.section-title {
+  font-family: 'PacificoRegular', cursive;
+  font-size: 2em;
+  color: #8b4513;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-weight: normal;
+}
+*/
+
+.form-content {
+  display: flex;
+  flex-direction: column; /* Stack textarea and button */
+  align-items: center; /* Center items horizontally */
+}
+
+.prompt-input {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  padding: 12px 15px;
+  border: 1px solid #b0c4de; /* Light Steel Blue */
+  border-radius: 6px;
+  width: 100%; /* Take full width of container */
+  margin-bottom: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  resize: vertical; /* Allow vertical resizing */
+  line-height: 1.5;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: #4682b4; /* Steel Blue */
+  box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+}
+
+.submit-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  background-color: #6a5acd; /* Slate Blue */
+  border: none;
+  border-radius: 25px; /* Rounded button */
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.submit-button:hover {
+  background-color: #483d8b; /* Dark Slate Blue */
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}

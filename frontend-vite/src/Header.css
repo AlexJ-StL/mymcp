@@ -1,0 +1,25 @@
+/* ./frontend-vite/src/Header.css */
+
+.app-header {
+  background-color: #FAF0E6; /* Linen (Creamy) */
+  padding: 20px 40px;
+  text-align: center;
+  border-bottom: 2px solid #b0e0e6; /* Powder Blue border */
+  margin-bottom: 30px;
+}
+
+.app-title {
+  font-family: 'DynaLightRegular', cursive; /* Use DynaLight */
+  font-size: 3.5em; /* Adjust size as needed */
+  color: #FF0000; /* Red */
+  margin: 0 0 10px 0; /* Remove default margins, add bottom margin */
+  font-weight: normal; /* DynaLight is already styled */
+}
+
+.app-tagline {
+  font-family: 'PacificoRegular', cursive; /* Use Pacifico for the tagline */
+  font-size: 1.4em; /* Adjust size */
+  color: #5f9ea0; /* Cadet Blue */
+  margin: 0; /* Remove default margins */
+  font-weight: normal; /* Pacifico is already styled */
+}

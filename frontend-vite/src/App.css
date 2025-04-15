@@ -1,94 +1,70 @@
+/* Main App Styles (frontend-vite/src/App.css) */
+
 .App {
-  background-color: #282c34;
-  color: white;
+  /* Inherits background-color, color, and font-family from body */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
+  text-align: center; /* Center content within the app */
 }
 
-.App-header {
-  background-color: #222;
+.app-content {
+  width: 90%; /* Wider content area */
+  max-width: 900px; /* Maximum width for larger screens */
   padding: 20px;
-  width: 100%;
-  border-bottom: 2px solid #0ff; /* Neon cyan border */
+  margin: 20px auto; /* Center the content */
+  box-sizing: border-box;
 }
 
-main {
-  padding: 20px;
-  width: 80%;
-  max-width: 800px;
-}
+/* Styles for the Header component are now in Header.css */
 
+/* Styles for individual sections are now in their respective component CSS files */
+
+/* General styles for sections (can be overridden in component-specific CSS) */
 section {
   width: 100%;
-  text-align: left;
-  margin-bottom: 20px;
-  border: 1px solid #0ff;
-  padding: 15px;
-  border-radius: 5px;
-  box-sizing: border-box; /* Include padding and border in width */
+  margin-bottom: 25px; /* Increased spacing between sections */
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
-h2 {
-  color: #0ff; /* Neon cyan */
-  border-bottom: 1px solid #0ff;
-  padding-bottom: 5px;
-}
-
-textarea, input[type="text"] {
-  background-color: #333;
-  color: white;
-  border: 1px solid #0ff;
-  padding: 10px;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  font-family: 'Courier New', Courier, monospace;
-}
-
-input[type="checkbox"] {
-  margin-left: 10px;
-}
-
-pre {
-  text-align: left;
-  width: 100%;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  background-color: #1e1e1e;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 15px;
-  padding-right: 5px; /* Reduced right padding */
-  border-radius: 5px;
-  overflow-x: auto;
-  box-sizing: border-box; /* Include padding and border in width */
-}
-
+/* Re-using existing button styles */
 button {
-    background-color: #0ff; /* Neon cyan */
-    color: #222;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: #007bff; /* Primary blue */
+  color: #fff; /* White text */
+  padding: 12px 30px; /* Slightly larger buttons */
+  border: none;
+  border-radius: 25px; /* More rounded buttons */
+  font-size: 1.1em; /* Slightly larger font */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px; /* More spacing above buttons */
+  transition: background-color 0.2s ease-in-out; /* Smooth transition */
 }
 
 button:hover {
-    background-color: #222;
-    color: #0ff;
-    border: 1px solid #0ff;
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
-/* Add styles for file paths */
-.file-path {
-  color: #0ff;
-  margin-top: 5px;
-  font-size: 0.9em;
+/* Error message container */
+.error-message-container {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #d9534f; /* Bootstrap danger color */
+  background-color: #f2dede; /* Light red background */
+  border: 1px solid #ebccd1; /* Reddish border */
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  margin-top: 15px;
 }
 
+body {
+  background-color: #ddebf7; /* Slightly darker soft blue */
+  /* Add a subtle texture */
+  /* background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H6V6H0V0ZM3 3H0V0H3V3ZM6 6H3V3H6V6Z' fill='%23f0f0f0' fill-opacity='0.04'/%3E%3C/svg%3E"); */
+}

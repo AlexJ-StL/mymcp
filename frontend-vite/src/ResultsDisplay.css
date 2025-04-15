@@ -1,0 +1,81 @@
+/* ./frontend-vite/src/ResultsDisplay.css */
+
+.results-display-section {
+  background-color: #f8f8ff; /* Ghost White */
+  padding: 25px 40px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8f8; /* Light lavender border */
+}
+
+/* Re-using section-title style */
+/*
+.section-title { ... }
+*/
+
+.results-container {
+  display: flex;
+  flex-direction: column; /* Stack code/config vertically */
+  gap: 30px; /* Space between code and config blocks */
+  margin-top: 20px;
+}
+
+.result-block {
+  background-color: #FAF0E6; /* Linen - Cream background for code blocks */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px 20px;
+}
+
+.result-block h3 {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.3em;
+  color: #4682b4; /* Steel Blue */
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.code-block {
+  background-color: #2d2d2d; /* Dark background for code */
+  color: #f0f0f0; /* Light text */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font */
+  font-size: 0.9em;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto; /* Allow horizontal scrolling for long lines */
+  white-space: pre-wrap; /* Wrap long lines while preserving whitespace */
+  word-wrap: break-word; /* Break long words if necessary */
+  max-height: 400px; /* Limit height and allow scrolling */
+  overflow-y: auto;
+  text-align: left; /* Left-align the code */
+}
+
+.file-path {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.save-button {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  background-color: #5cb85c; /* Bootstrap success color */
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.save-button:hover {
+  background-color: #4cae4c; /* Darker shade on hover */
+}
