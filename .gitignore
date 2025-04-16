@@ -1,0 +1,12 @@
+.pytest_cache/
+.test_server/
+node_modules/
+__pycache__/
+.aider.tags.cache.v3/
+.docs/
+frontend-vite/dist/
+list/
+mymcp/
+uv.lock
+.aider.chat.history.md
+.aider.input.history

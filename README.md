@@ -65,7 +65,7 @@ The application consists of:
 
 4.  **Set the Gemini API Key:**
 
-    Obtain a Google Gemini API key and set it as an environment variable named `GEMINI_API_KEY`.
+    **Important:** Obtain a Google Gemini API key and set it as an environment variable named `GEMINI_API_KEY`. **Do not commit your API key to the repository.**
 
     **Windows (Command Prompt):**
 
